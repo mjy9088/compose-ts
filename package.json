@@ -1,0 +1,18 @@
+{
+  "name": "compose-ts",
+  "version": "1.0.0-pre0",
+  "description": "type safe version of ts-compose",
+  "main": "index.js",
+  "scripts": {
+    "build": "rimraf dist && tsc -p tsconfig.dist.json && package-json-minifier",
+    "publish": "npm run build && cd dist && npm publish"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "package.json-minifier": "^0.0.4",
+    "rimraf": "^5.0.5",
+    "typescript": "^5.3.3"
+  }
+}

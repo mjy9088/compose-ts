@@ -1,0 +1,14 @@
+{
+  "compilerOptions": {
+    "rootDir": "src",
+    "noImplicitAny": true,
+    "strict": true,
+    "strictNullChecks": true,
+    "strictFunctionTypes": true,
+    "strictBindCallApply": true,
+    "strictPropertyInitialization": true,
+    "outDir": "dist",
+    "declaration": true,
+  },
+  "include": ["src/**/*.ts"],
+}
