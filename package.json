@@ -1,15 +1,19 @@
 {
   "name": "compose-ts",
-  "version": "1.0.0-pre0",
-  "description": "type safe version of ts-compose",
+  "version": "1.0.0-pre1",
+  "description": "Type safe version of `compose()` util",
   "main": "index.js",
   "scripts": {
     "build": "rimraf dist && tsc -p tsconfig.dist.json && package-json-minifier",
     "publish": "npm run build && cd dist && npm publish"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/mjy9088/compose-ts.git"
+  },
+  "keywords": ["compose"],
+  "author": "Juyeong Maing<mjy9088@gmail.com>",
+  "license": "MIT",
   "devDependencies": {
     "package.json-minifier": "^0.0.4",
     "rimraf": "^5.0.5",
