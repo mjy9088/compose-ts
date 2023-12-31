@@ -1,48 +1,48 @@
-class ComposeInternal<TReturn, TArgs extends any[]> {
-  private readonly func: (...args: TArgs) => TReturn;
+class ComposeInternal<TParameters extends any[], TReturnType> {
+  private readonly func: (...args: TParameters) => TReturnType;
 
-  constructor(func: (...args: TArgs) => TReturn) {
+  constructor(func: (...args: TParameters) => TReturnType) {
     this.func = func;
   }
 
-  public build(): (...args: TArgs) => TReturn {
+  public build(): (...args: TParameters) => TReturnType {
     return this.func;
   }
 
-  public enhance<TReturn2, TArgs2 extends any[], TExtra extends any[]>(
+  public enhance<TReturnType2, TParameters2 extends any[], TExtra extends any[]>(
     enhancer: (
-      func: (...args: TArgs) => TReturn,
+      func: (...args: TParameters) => TReturnType,
       ...extra: TExtra
-    ) => (...args: TArgs2) => TReturn2,
+    ) => (...args: TParameters2) => TReturnType2,
     ...extra: TExtra
-  ): ComposeInternal<TReturn2, TArgs2> {
+  ): ComposeInternal<TParameters2, TReturnType2> {
     return new ComposeInternal(enhancer(this.func, ...extra));
   }
 }
 
-export interface Compose<TReturn, TArgs extends any[]> {
-  (): (...args: TArgs) => TReturn;
-  <TReturn2, TArgs2 extends any[], TExtra extends any[]>(
+export interface Compose<TParameters extends any[], TReturnType> {
+  (): (...args: TParameters) => TReturnType;
+  <TReturnType2, TParameters2 extends any[], TExtra extends any[]>(
     enhancer: (
-      func: (...args: TArgs) => TReturn,
+      func: (...args: TParameters) => TReturnType,
       ...extra: TExtra
-    ) => (...args: TArgs2) => TReturn2,
+    ) => (...args: TParameters2) => TReturnType2,
     ...extra: TExtra
-  ): Compose<TReturn2, TArgs2>;
+  ): Compose<TParameters2, TReturnType2>;
 }
 
-export function compose<TReturn, TArgs extends any[]>(
-  func: (...args: TArgs) => TReturn
-): Compose<TReturn, TArgs> {
+export function compose<TParameters extends any[], TReturnType>(
+  func: (...args: TParameters) => TReturnType
+): Compose<TParameters, TReturnType> {
   const internal = new ComposeInternal(func);
-  return (<TReturn2, TArgs2 extends any[], TExtra extends any[]>(
+  return (<TReturnType2, TParameters2 extends any[], TExtra extends any[]>(
     func?: (
-      func: (...args: TArgs) => TReturn,
+      func: (...args: TParameters) => TReturnType,
       ...extra: TExtra
-    ) => (...args: TArgs2) => TReturn2,
+    ) => (...args: TParameters2) => TReturnType2,
     ...extra: TExtra
   ) =>
     func
       ? compose(internal.enhance(func, ...extra).build())
-      : internal.build()) as Compose<TReturn, TArgs>;
+      : internal.build()) as Compose<TParameters, TReturnType>;
 }
