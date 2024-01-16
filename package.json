@@ -1,6 +1,6 @@
 {
   "name": "compose-ts",
-  "version": "1.0.0-pre5",
+  "version": "1.0.0",
   "description": "Type safe version of `compose()` util",
   "main": "index.js",
   "scripts": {

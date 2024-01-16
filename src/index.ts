@@ -1,24 +1,19 @@
-export interface Compose<TParameters extends any[], TReturnType> {
-  (): (...args: TParameters) => TReturnType;
-  <TReturnType2, TParameters2 extends any[], TExtra extends any[]>(
-    enhancer: (
-      func: (...args: TParameters) => TReturnType,
-      ...extra: TExtra
-    ) => (...args: TParameters2) => TReturnType2,
+export interface Compose<T> {
+  (): T;
+  <TReturnType, TExtra extends any[]>(
+    func: (value: T, ...extra: TExtra) => TReturnType,
     ...extra: TExtra
-  ): Compose<TParameters2, TReturnType2>;
+  ): Compose<TReturnType>;
 }
 
-export function compose<TParameters extends any[], TReturnType>(
-  func: (...args: TParameters) => TReturnType
-): Compose<TParameters, TReturnType> {
-  return <Compose<TParameters, TReturnType>>(
-    (<TReturnType2, TParameters2 extends any[], TExtra extends any[]>(
-      enhancer?: (
-        func: (...args: TParameters) => TReturnType,
+export function compose<T>(value: T): Compose<T> {
+  return <Compose<T>>(
+    (<TReturnType, TParameters extends any[], TExtra extends any[]>(
+      func?: (
+        value: T,
         ...extra: TExtra
-      ) => (...args: TParameters2) => TReturnType2,
+      ) => (...args: TParameters) => TReturnType,
       ...extra: TExtra
-    ) => (enhancer ? compose(enhancer(func, ...extra)) : func))
+    ) => (func ? compose(func(value, ...extra)) : value))
   );
 }
