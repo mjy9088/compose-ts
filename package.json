@@ -1,10 +1,10 @@
 {
   "name": "compose-ts",
-  "version": "2.0.0",
+  "version": "1.0.0",
   "description": "Type safe version of `compose()` util",
   "main": "index.js",
   "scripts": {
-    "build": "rimraf dist && tsc -p tsconfig.dist.json && package-json-minifier && cpy README.md dist",
+    "build": "rimraf dist && tsc -p tsconfig.dist.json && package-json-minifier && cpy README.md LICENSE dist",
     "publish": "npm run build && cd dist && npm publish"
   },
   "repository": {
