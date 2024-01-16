@@ -11,13 +11,13 @@ type Func<TParameters extends any[], TReturnType>
   = (...args: TParameters) => TReturnType;
 
 const addEnhancer = <TParameters extends any[]>
-  (func: Func<TParameters, number>, num = 1)
-    => (...args: TParameters) => func(...args) + num;
+  (func: Func<TParameters, number>, num = 1) =>
+    (...args: TParameters) => func(...args) + num;
 const multiplyEnhancer = <TParameters extends any[]>
-  (func: Func<TParameters, number>, num = 2)
-    => (...args: TParameters) => func(...args) * num;
-const parseIntEnhancer = (func: Func<[number], number>)
-  => (arg: string) => func(parseInt(arg));
+  (func: Func<TParameters, number>, num = 2) =>
+    (...args: TParameters) => func(...args) * num;
+const parseIntEnhancer = (func: Func<[number], number>) =>
+  (arg: string) => func(parseInt(arg));
 
 const I = (result: number) => result;
 const enhanced = compose(I) // start compose!
