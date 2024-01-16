@@ -7,14 +7,14 @@ Change `e(d(c(b(a(x)))))` to `compose(x)(a)(b)(c)(d)(e)()`
 ```typescript
 import { compose } from 'compose-ts';
 
-const add = (num = 1) => (n: number) => n + num;
-const multiply = (num = 2) => (n: number) => n * num;
+const add = (n: number, num = 1) => n + num;
+const multiply = (n: number, num = 2) => n * num;
 const toString = (n: number) => n.toString();
 
 const num = compose(42) // start compose!
-            (add()) // add 1
-            (multiply()) // multiply 2
-            (add(5)) // add 5
+            (add) // add 1
+            (multiply) // multiply 2
+            (add, 5) // add 5
             (toString) // ... and so on
             (); // end compose!
 console.log(num); // 91 (= ((42 + 1) * 2 + 5).toString())
