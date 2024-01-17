@@ -7,13 +7,9 @@ export interface Compose<T> {
 }
 
 export function compose<T>(value: T): Compose<T> {
-  return <Compose<T>>(
-    (<TReturnType, TParameters extends any[], TExtra extends any[]>(
-      func?: (
-        value: T,
-        ...extra: TExtra
-      ) => (...args: TParameters) => TReturnType,
-      ...extra: TExtra
-    ) => (func ? compose(func(value, ...extra)) : value))
-  );
+  return (<TReturnType, TExtra extends any[]>(
+    func?: (value: T, ...extra: TExtra) => TReturnType,
+    ...extra: TExtra
+  ): T | Compose<TReturnType> =>
+    func ? compose(func(value, ...extra)) : value) as Compose<T>;
 }
