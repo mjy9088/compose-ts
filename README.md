@@ -39,22 +39,22 @@ import { compose } from 'compose-ts';
 type Func<TParameters extends any[], TReturnType> =
   (...args: TParameters) => TReturnType;
 
-const add =
+const addH =
   <TParameters extends any[]>(func: Func<TParameters, number>, num = 1) =>
     (...args: TParameters) => func(...args) + num;
 
-const multiply =
+const multiplyH =
   <TParameters extends any[]>(func: Func<TParameters, number>, num = 2) =>
     (...args: TParameters) => func(...args) * num;
 
-const parseInt =
+const parseIntH =
   (func: Func<[number], number>) =>
     (arg: string) => func(parseInt(arg));
 
 const I = (result: number) => result;
 
-const enhanced = compose(I)(add)(multiply)(add, 5)(parseInt)();
-// Equivalent: const enhanced = parseInt(add(multiply(add(I)), 5));
+const enhanced = compose(I)(addH)(multiplyH)(addH, 5)(parseIntH)();
+// Equivalent: const enhanced = parseIntH(addH(multiplyH(addH(I)), 5));
 
 console.log(enhanced("42")); // 91
 ```
